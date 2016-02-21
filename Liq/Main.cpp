@@ -7,16 +7,16 @@ int searchValue(char** Array, char* Value, int** targets)
 {
 	int targetCounts = 0;
 	char** CurStr = Array;
+	(*targets) = (int*)malloc(sizeof(int));
+	(*targets)[0] = 0;
 	while (CurStr)
 	{
 		if (strcmp(*CurStr, Value))
 		{
 			targetCounts++;
-			if (targetCounts > 1)
-				(*targets) = (int*)realloc(targets, sizeof(int) * targetCounts);
-			else
-				(*targets) = (int*)malloc(sizeof(int));
+			(*targets) = (int*)realloc(targets, sizeof(int) * (targetCounts + 1));
 			(*targets)[targetCounts - 1] = CurStr - Array;
+			(*targets)[targetCounts] = 0;
 		}
 		CurStr ++;
 	}
